@@ -32,6 +32,9 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Tap me!">
                                     <fontDescription key="titleFontDescription" type="system" pointSize="30"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="tapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="V6Q-iv-qlc"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -46,6 +49,7 @@
                     <connections>
                         <outlet property="button" destination="6Uc-HR-byr" id="gAZ-X5-dfV"/>
                         <outlet property="imageView" destination="SVC-ck-AkH" id="Jsq-O3-2sU"/>
+                        <segue destination="jkh-oO-kq9" kind="show" identifier="show" id="4dj-Yu-kGc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -55,7 +59,7 @@
         <!--Second View Controller-->
         <scene sceneID="JhJ-5l-ro1">
             <objects>
-                <viewController id="jkh-oO-kq9" customClass="SecondViewController" customModule="CALayer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="jkh-oO-kq9" customClass="SecondViewController" customModule="CALayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dYF-KE-NOk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -75,6 +79,9 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Take the cup">
                                     <fontDescription key="titleFontDescription" type="system" pointSize="30"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="tapped:" destination="jkh-oO-kq9" eventType="touchUpInside" id="eaO-sG-xx1"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vAZ-4Z-g4A"/>
@@ -86,6 +93,7 @@
                             <constraint firstItem="kUO-r4-ZDb" firstAttribute="top" secondItem="vAZ-4Z-g4A" secondAttribute="top" constant="300" id="zH9-3W-gTs"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="xj8-3s-b4N"/>
                     <connections>
                         <outlet property="button" destination="RL9-et-vXg" id="kf5-MJ-gVO"/>
                         <outlet property="imageView" destination="kUO-r4-ZDb" id="i7u-4m-bS5"/>

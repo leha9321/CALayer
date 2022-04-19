@@ -7,8 +7,35 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CAAnimationDelegate {
     
+    var shapeLayer: CAShapeLayer! {
+        didSet {
+            shapeLayer.lineWidth = 20
+            shapeLayer.lineCap = .round
+            shapeLayer.fillColor = nil
+            shapeLayer.strokeEnd = 1
+            shapeLayer.strokeColor = UIColor.systemBlue.cgColor
+        }
+    }
+    
+    var overshapeLayer: CAShapeLayer! {
+        didSet {
+            overshapeLayer.lineWidth = 20
+            overshapeLayer.lineCap = .round
+            overshapeLayer.fillColor = nil
+            overshapeLayer.strokeEnd = 0
+            overshapeLayer.strokeColor = UIColor.white.cgColor
+        }
+    }
+    
+    var gradientLayer: CAGradientLayer! {
+        didSet {
+            gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+            gradientLayer.endPoint = CGPoint(x: 0, y: 1)
+            gradientLayer.colors = [UIColor.blue.cgColor, UIColor.red.cgColor, UIColor.yellow.cgColor]
+        }
+    }
     
     @IBOutlet weak var imageView: UIImageView! {
         didSet {
@@ -25,12 +52,45 @@ class ViewController: UIViewController {
             button.layer.shadowRadius = 5
         }
     }
+    override func viewDidLayoutSubviews() {
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height)
+        configShapeLayer(shapeLayer: shapeLayer)
+        configShapeLayer(shapeLayer: overshapeLayer)
+    }
+    
+    func configShapeLayer(shapeLayer: CAShapeLayer){
+        shapeLayer.frame = view.bounds
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: self.view.frame.width / 2 - 100, y: self.view.frame.height / 2))
+        path.addLine(to: CGPoint(x: self.view.frame.width / 2 + 100, y: self.view.frame.height / 2))
+        shapeLayer.path = path.cgPath
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        gradientLayer = CAGradientLayer()
+        view.layer.insertSublayer(gradientLayer, at: 0)
+        
+        shapeLayer = CAShapeLayer()
+        view.layer.addSublayer(shapeLayer)
+        
+        overshapeLayer = CAShapeLayer()
+        view.layer.addSublayer(overshapeLayer)
     }
     
+    @IBAction func tapped(_ sender: UIButton) {
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.toValue = 1
+        animation.duration = 1
+        
+        animation.delegate = self
+        
+        overshapeLayer.add(animation, forKey: nil)
+    }
     
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        performSegue(withIdentifier: "show", sender: self)
+    }
 }
 
