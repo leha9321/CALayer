@@ -1,4 +1,4 @@
-# CALayer
+# Simple CALayer App
 
 CAGradientLayer 
 
